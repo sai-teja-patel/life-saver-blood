@@ -145,8 +145,8 @@ def save_donor():
         return redirect(url_for('register'))
         
     db_query('''
-        INSERT INTO donors (name, phone, blood_group, location, email, password, last_donation) 
-        VALUES (?, ?, ?, ?, ?, ?, ?)
+        INSERT INTO donors (name, phone, blood_group, location, email, password, last_donation, is_hidden) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, 0)
     ''', (data['name'], data['phone'], data['blood_group'], data['location'], data.get('email'), data['password'], data.get('last_donation')), commit=True)
     
     flash("Congratulations! You have successfully registered as a donor. Thank you for your kindness.", "success")

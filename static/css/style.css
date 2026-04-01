@@ -1,0 +1,400 @@
+/* Professional Design System for LifeSaver Blood Bank Management System */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary-color: #d32f2f;
+    --primary-dark: #b71c1c;
+    --secondary-color: #455a64;
+    --bg-color: #fdfdfd;
+    --card-bg: #ffffff;
+    --text-color: #263238;
+    --text-muted: #78909c;
+    --white: #ffffff;
+    --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Outfit', sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header & Navigation */
+header {
+    background: var(--white);
+    padding: 1.25rem 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-img {
+    height: 48px;
+    width: auto;
+    filter: drop-shadow(0 2px 4px rgba(211, 47, 47, 0.2));
+}
+
+header h1 {
+    font-size: 1.75rem;
+    color: var(--primary-color);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    margin-left: 25px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: var(--transition);
+}
+
+nav a:hover {
+    background: rgba(211, 47, 47, 0.05);
+    color: var(--primary-color);
+}
+
+/* Main Content */
+main {
+    flex: 1;
+    padding: 4rem 10%;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Professional Cards & Containers */
+.card {
+    background: var(--card-bg);
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    margin-bottom: 2.5rem;
+    border: 1px solid rgba(0,0,0,0.02);
+}
+
+/* Buttons */
+button, .btn {
+    background: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-block;
+    text-decoration: none;
+    font-size: 1rem;
+    text-align: center;
+}
+
+button:hover, .btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(211, 47, 47, 0.25);
+}
+
+/* Forms */
+.form-group {
+    margin-bottom: 1.75rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    color: var(--secondary-color);
+    font-size: 0.95rem;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 14px 18px;
+    border: 2px solid #eaeff2;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: var(--transition);
+    background-color: #f8fafb;
+    color: var(--text-color);
+}
+
+select {
+    appearance: none; /* Only hide default select arrow for native selects */
+}
+
+/* Custom dropdown arrow for searchable inputs */
+.searchable-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23455a64' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 18px;
+    padding-right: 45px !important;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background-color: var(--white);
+    box-shadow: 0 0 0 4px rgba(211, 47, 47, 0.08);
+}
+
+/* Custom Error Styling (replaces browser defaults) */
+.error-input {
+    border-color: #c62828 !important;
+    background-color: #fff8f8 !important;
+    box-shadow: 0 0 0 4px rgba(198, 40, 40, 0.1) !important;
+}
+
+.error-message {
+    color: #c62828;
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: var(--transition);
+    pointer-events: none;
+}
+
+.error-message.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Footer */
+footer {
+    background-color: #1a1a1a;
+    color: #90a4ae;
+    padding: 3rem 10%;
+    text-align: center;
+    margin-top: auto;
+}
+
+footer p:first-child {
+    font-size: 1.1rem;
+    color: var(--white);
+    margin-bottom: 10px;
+}
+
+footer p {
+    font-size: 0.9rem;
+}
+
+/* Search results style */
+.result-item {
+    border-left: 6px solid var(--primary-color);
+    padding: 1.75rem;
+    margin-bottom: 1.25rem;
+    background: var(--white);
+    border-radius: 0 16px 16px 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+    transition: var(--transition);
+}
+
+.result-item:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.blood-type {
+    background: var(--primary-color);
+    color: var(--white);
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-weight: 700;
+}
+
+/* Page Layout Helpers */
+.text-center { text-align: center; }
+.mt-20 { margin-top: 20px; }
+.mb-20 { margin-bottom: 20px; }
+
+/* Alert Messages */
+.alert-container {
+    padding: 0 10%;
+    margin-top: 1.5rem;
+    width: 100%;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.alert {
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    animation: slideDown 0.5s ease;
+}
+
+.alert-success {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+}
+
+.alert-info {
+    background-color: #e3f2fd;
+    color: #1565c0;
+    border: 1px solid #bbdefb;
+}
+
+.alert-error {
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #ffcdd2;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Password Toggle Style */
+.password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-wrapper input {
+    padding-right: 50px;
+}
+
+/* Hide default browser password toggle icons (Edge/Chrome) */
+input::-ms-reveal,
+input::-ms-clear {
+    display: none;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    color: var(--secondary-color);
+    transition: var(--transition);
+}
+
+.toggle-password:hover {
+    color: var(--primary-color);
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+main > * {
+    animation: fadeIn 0.6s ease-out;
+}
+
+/* Mobile Responsiveness Queries */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        padding: 1.5rem 5%;
+        text-align: center;
+        gap: 15px;
+    }
+
+    nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5px;
+    }
+
+    nav a {
+        margin: 5px;
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+
+    main {
+        padding: 2rem 5%;
+    }
+
+    .card {
+        padding: 1.5rem;
+        border-radius: 16px;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .logo-img {
+        height: 40px;
+    }
+
+    .alert-container {
+        padding: 0 5%;
+    }
+
+    .result-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .result-item {
+        padding: 1.25rem;
+    }
+
+    .btn, button {
+        width: 100%; /* Make buttons full-width on mobile for easier tapping */
+        margin-bottom: 10px;
+    }
+
+    /* Grid layouts to single column */
+    .card > div[style*="grid-template-columns"] {
+        grid-template-columns: 1fr !important;
+    }
+
+    form > div[style*="grid-template-columns"] {
+        grid-template-columns: 1fr !important;
+    }
+}

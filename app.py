@@ -68,7 +68,7 @@ def init_db():
                 location TEXT NOT NULL,
                 email TEXT,
                 password TEXT NOT NULL,
-                is_hidden INTEGER DEFAULT 1,
+                is_hidden INTEGER DEFAULT 0,
                 last_donation TEXT DEFAULT NULL 
             )
         ''')

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donor Login - LifeSaver</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="logo-container" onclick="location.href='/'" style="cursor:pointer;">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="LifeSaver Logo" class="logo-img">
+            <h1>LifeSaver</h1>
+        </div>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+        </nav>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="alert-container">
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <main>
+        <div class="card" style="max-width: 500px; margin: 0 auto; text-align: center;">
+            <h2>Donor Portal Access</h2>
+            <p style="margin-bottom: 30px; color: var(--text-muted);">Please enter your registered credentials to manage your details.</p>
+            
+            <form action="" method="POST" novalidate onsubmit="return validateForm(event)">
+                <div class="form-group" style="text-align: left;">
+                    <label>Phone Number</label>
+                    <input type="tel" name="phone" pattern="[0-9]{10}" placeholder="Enter your 10-digit number" required>
+                    <span class="error-message">Valid 10-digit registered number is required.</span>
+                </div>
+                
+                <div class="form-group" style="text-align: left;">
+                    <label>Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="loginPassword" name="password" placeholder="Enter your password" required>
+                        <span class="toggle-password" onclick="togglePassword('loginPassword', this)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                        </span>
+                    </div>
+                    <span class="error-message">Password is required to enter.</span>
+                </div>
+                
+                <div style="margin-top: 30px;">
+                    <button type="submit" style="width: 100%; padding: 15px; font-size: 1.1rem;">Secure Login</button>
+                </div>
+            </form>
+            
+            <div style="margin-top: 25px; border-top: 1px solid #eee; padding-top: 15px;">
+                <p style="font-size: 0.9rem; color: var(--text-muted);">Haven't registered yet? <a href="/register" style="color: var(--primary-color);">Become a donor</a></p>
+            </div>
+            <div style="margin-top: 15px;">
+                <a href="/" style="text-decoration: none; color: var(--secondary-color); font-size: 0.9rem;">&larr; Back to Home</a>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>"A small wait for us can be eternity for someone else."</p>
+        <p>&copy; 2026 LifeSaver Blood Bank. All rights reserved.</p>
+    </footer>
+    <script>
+        function togglePassword(inputId, el) {
+            const input = document.getElementById(inputId);
+            if (input.type === "password") {
+                input.type = "text";
+                el.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>';
+            } else {
+                input.type = "password";
+                el.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>';
+            }
+        }
+
+        function validateForm(e) {
+            const form = e.target;
+            const inputs = form.querySelectorAll('input[required]');
+            let isValid = true;
+            
+            inputs.forEach(input => {
+                input.classList.remove('error-input');
+                const errMsg = input.closest('.form-group').querySelector('.error-message');
+                if (errMsg) errMsg.classList.remove('show');
+                
+                if (!input.checkValidity()) {
+                    isValid = false;
+                    input.classList.add('error-input');
+                    if (errMsg) errMsg.classList.add('show');
+                    
+                    input.addEventListener('input', () => {
+                        input.classList.remove('error-input');
+                        if (errMsg) errMsg.classList.remove('show');
+                    }, { once: true });
+                }
+            });
+            
+            if (!isValid) {
+                e.preventDefault();
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>

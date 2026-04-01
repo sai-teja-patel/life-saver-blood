@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donor Registration - LifeSaver</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="logo-container" onclick="location.href='/'" style="cursor:pointer;">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="LifeSaver Logo" class="logo-img">
+            <h1>LifeSaver</h1>
+        </div>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+        </nav>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="alert-container">
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <main>
+        <div class="card" style="max-width: 600px; margin: 0 auto;">
+            <h2>Become a Life Saver</h2>
+            <p style="margin-bottom: 30px; color: var(--text-muted);">Please provide accurate information for donor registration.</p>
+            
+            <form action="/register" method="POST" id="regForm" novalidate onsubmit="return validateForm(event)">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" name="name" placeholder="Enter your full name" required>
+                    <span class="error-message">A full name is required for registration.</span>
+                </div>
+                
+                <div class="form-group">
+                    <label>Phone Number (10 digits)</label>
+                    <input type="tel" name="phone" pattern="[0-9]{10}" placeholder="Enter your 10-digit mobile number" required>
+                    <span class="error-message">Enter exactly 10 digits as a phone number.</span>
+                </div>
+                
+                <div class="form-group">
+                    <label>Blood Group</label>
+                    <select name="blood_group" required>
+                        <option value="" disabled selected>Select Blood Group</option>
+                        <option>A+</option><option>A-</option>
+                        <option>B+</option><option>B-</option>
+                        <option>O+</option><option>O-</option>
+                        <option>AB+</option><option>AB-</option>
+                    </select>
+                    <span class="error-message">Selecting a blood group is essential.</span>
+                </div>
+                
+                <div class="form-group">
+                    <label>Location (District)</label>
+                    <select name="location" required>
+                        <option value="" disabled selected>Select District</option>
+                        {% for loc in locations %}
+                            <option value="{{ loc }}">{{ loc }}</option>
+                        {% endfor %}
+                    </select>
+                    <span class="error-message">Please pick your home district from the list.</span>
+                </div>
+                
+                <div class="form-group">
+                    <label>Email Address (Optional)</label>
+                    <input type="email" name="email" placeholder="Enter your email for further communication">
+                </div>
+                
+                <div class="form-group">
+                    <label>Set Password (to edit/hide details later)</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="regPassword" name="password" placeholder="Min. 6 characters" minlength="6" required>
+                        <span class="toggle-password" onclick="togglePassword('regPassword', this)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                        </span>
+                    </div>
+                    <span class="error-message">Choose a secure password (min. 6 characters).</span>
+                </div>
+                
+                <div class="form-group">
+                    <label>Last Donation Date (Optional)</label>
+                    <input type="date" name="last_donation" placeholder="Select date if you donated recently">
+                    <span class="error-message">Please enter a valid date or leave blank.</span>
+                </div>
+                
+                <div style="margin-top: 40px; border-top: 1px solid #eee; padding-top: 20px; text-align: center;">
+                    <button type="submit" style="width: 100%;">Preview My Details</button>
+                    <p style="margin-top: 20px; font-size: 0.8rem; color: var(--text-muted);">By registering, you agree to being contacted by people in need.</p>
+                </div>
+            </form>
+            <div style="text-align: center; margin-top: 15px;">
+                <a href="/" style="text-decoration: none; color: var(--secondary-color); font-size: 0.9rem;">&larr; Cancel and Home</a>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>"Join the community of heroes. Your registration can save a life today."</p>
+        <p>&copy; 2026 LifeSaver Blood Bank. All rights reserved.</p>
+    </footer>
+    <script>
+        function togglePassword(inputId, el) {
+            const input = document.getElementById(inputId);
+            if (input.type === "password") {
+                input.type = "text";
+                el.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>';
+            } else {
+                input.type = "password";
+                el.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>';
+            }
+        }
+
+        function validateForm(e) {
+            const form = e.target;
+            const inputs = form.querySelectorAll('input[required], select[required]');
+            let isValid = true;
+            
+            inputs.forEach(input => {
+                // Remove existing error states
+                input.classList.remove('error-input');
+                const errMsg = input.closest('.form-group').querySelector('.error-message');
+                if (errMsg) errMsg.classList.remove('show');
+                
+                // Check validity
+                if (!input.checkValidity() || (input.tagName === 'SELECT' && !input.value)) {
+                    isValid = false;
+                    input.classList.add('error-input');
+                    if (errMsg) errMsg.classList.add('show');
+                    
+                    // Specific event listener to remove error once user typing/choosing
+                    input.addEventListener('input', () => {
+                        input.classList.remove('error-input');
+                        if (errMsg) errMsg.classList.remove('show');
+                    }, { once: true });
+                }
+            });
+            
+            if (!isValid) {
+                e.preventDefault();
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>

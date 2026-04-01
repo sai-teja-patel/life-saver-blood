@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit My Details - LifeSaver</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="logo-container" onclick="location.href='/'" style="cursor:pointer;">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="LifeSaver Logo" class="logo-img">
+            <h1>LifeSaver</h1>
+        </div>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+        </nav>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="alert-container">
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <main>
+        <div class="card" style="max-width: 700px; margin: 0 auto;">
+            <h2>Update Your Donor Profile</h2>
+            <p style="margin-bottom: 30px; color: var(--text-muted);">Ensure your contact information is up to date for those in need.</p>
+            
+            <form action="/update_donor" method="POST">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" name="name" value="{{ user.name }}" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" name="phone" value="{{ user.phone }}" pattern="[0-9]{10}" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Blood Group</label>
+                    <select name="blood_group" required>
+                        <option value="A+" {% if user.blood_group == 'A+' %}selected{% endif %}>A+</option>
+                        <option value="A-" {% if user.blood_group == 'A-' %}selected{% endif %}>A-</option>
+                        <option value="B+" {% if user.blood_group == 'B+' %}selected{% endif %}>B+</option>
+                        <option value="B-" {% if user.blood_group == 'B-' %}selected{% endif %}>B-</option>
+                        <option value="O+" {% if user.blood_group == 'O+' %}selected{% endif %}>O+</option>
+                        <option value="O-" {% if user.blood_group == 'O-' %}selected{% endif %}>O-</option>
+                        <option value="AB+" {% if user.blood_group == 'AB+' %}selected{% endif %}>AB+</option>
+                        <option value="AB-" {% if user.blood_group == 'AB-' %}selected{% endif %}>AB-</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Location (District)</label>
+                    <select name="location" required>
+                        {% for loc in locations %}
+                            <option value="{{ loc }}" {% if user.location == loc %}selected{% endif %}>{{ loc }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" name="email" value="{{ user.email }}">
+                </div>
+                
+                <div class="form-group">
+                    <label>Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="editPassword" name="password" value="{{ user.password }}" minlength="6" required>
+                        <span class="toggle-password" onclick="togglePassword('editPassword', this)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Last Donation Date</label>
+                    <input type="date" name="last_donation" value="{{ user.last_donation }}">
+                </div>
+                
+                <div style="margin-top: 35px; border-top: 1px solid #eee; padding-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <a href="/registration_menu" class="btn" style="background: var(--secondary-color); text-align: center;">Cancel</a>
+                    <button type="submit" class="btn">Update My Information</button>
+                </div>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <p>"Your updated profile keeps the lifeline strong."</p>
+        <p>&copy; 2026 LifeSaver Blood Bank. All rights reserved.</p>
+    </footer>
+    <script>
+        function togglePassword(inputId, el) {
+            const input = document.getElementById(inputId);
+            if (input.type === "password") {
+                input.type = "text";
+                el.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>';
+            } else {
+                input.type = "password";
+                el.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>';
+            }
+        }
+    </script>
+</body>
+</html>

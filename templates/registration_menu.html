@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donor Menu - LifeSaver</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="logo-container" onclick="location.href='/'" style="cursor:pointer;">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="LifeSaver Logo" class="logo-img">
+            <h1>LifeSaver</h1>
+        </div>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+        </nav>
+    </header>
+    <main>
+        <div class="card" style="max-width: 600px; margin: 0 auto; text-align: center;">
+            <h2>Registration Menu</h2>
+            <p style="margin-bottom: 40px; color: var(--text-muted);">Welcome to our community. Choose your preferred action below.</p>
+            
+            <div style="display: grid; grid-template-columns: 1fr; gap: 20px;">
+                <a href="/register" class="btn" style="padding: 20px;">New Donor Registration</a>
+                <a href="/modify" class="btn" style="padding: 20px; background: var(--secondary-color);">Edit/Update My Profile</a>
+            </div>
+            
+            <div style="margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
+                <a href="/" style="text-decoration: none; color: var(--secondary-color); font-size: 0.9rem;">&larr; Back to Home</a>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>"Because you care, someone will live."</p>
+        <p>&copy; 2026 LifeSaver Blood Bank. All rights reserved.</p>
+    </footer>
+</body>
+</html>

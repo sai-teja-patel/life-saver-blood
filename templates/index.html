@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeSaver - Blood Bank Management System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+</head>
+<body>
+    <header>
+        <div class="logo-container" onclick="location.href='/'" style="cursor:pointer;">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="LifeSaver Logo" class="logo-img">
+            <h1>LifeSaver</h1>
+        </div>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/admin" class="admin-btn">
+    <span class="admin-icon">🛡️</span>
+    Admin Login
+</a>
+        </nav>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="alert-container">
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <main>
+        <div class="card" style="text-align: center;">
+            <h2>Saving Lives Together</h2>
+            <p style="margin-top: 10px; color: var(--secondary-color);">Professional tools to manage blood donations and searches effortlessly.</p>
+            <div style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                <a href="/search" class="btn">Search Donors</a>
+                <a href="/registration_menu" class="btn">Donor Registration</a>
+            </div>
+            <div style="margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
+                <p style="margin-bottom: 15px; font-size: 0.9rem;">Already a donor and want to manage your visibility?</p>
+                <a href="/privacy_login" class="btn" style="background: var(--secondary-color);">Privacy Settings</a>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p style="background-color:lightgrey; color:red; border-radius:5px 5px 5px 5px">To modify your recent donation date go to <a href="/modify">EDIT_PROFILE</a></p>
+        <p>"A drop of blood can save a life."</p>
+        <p>&copy; 2026 LifeSaver Blood Bank. All rights reserved.</p>
+    </footer>
+</body>
+</html>

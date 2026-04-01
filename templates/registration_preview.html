@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Preview - LifeSaver</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="logo-container" onclick="location.href='/'" style="cursor:pointer;">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="LifeSaver Logo" class="logo-img">
+            <h1>LifeSaver</h1>
+        </div>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+        </nav>
+    </header>
+    <main>
+        <div class="card" style="max-width: 600px; margin: 0 auto;">
+            <h2 style="color: var(--primary-color);">Confirm Your Details</h2>
+            <p style="margin-bottom: 30px; color: var(--text-muted);">Please review your information before final registration.</p>
+            
+            <div class="result-item" style="border-left: 5px solid var(--primary-color); padding: 25px; background: rgba(0,0,0,0.02); border-radius: 8px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div>
+                        <p><strong>Full Name:</strong></p>
+                        <p style="color: var(--text-color); margin-bottom: 15px;">{{ data.name }}</p>
+                        
+                        <p><strong>Phone Number:</strong></p>
+                        <p style="color: var(--text-color); margin-bottom: 15px;">{{ data.phone }}</p>
+                        
+                        <p><strong>Blood Group:</strong></p>
+                        <p style="color: var(--primary-color); font-weight: bold; font-size: 1.2rem; margin-bottom: 15px;">{{ data.blood_group }}</p>
+                    </div>
+                    <div>
+                        <p><strong>Location:</strong></p>
+                        <p style="color: var(--text-color); margin-bottom: 15px;">{{ data.location }}</p>
+                        
+                        <p><strong>Email:</strong></p>
+                        <p style="color: var(--text-color); margin-bottom: 15px;">{{ data.email if data.email else 'Not provided' }}</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <form action="/register" method="GET" style="display: inline-block;">
+                    <button type="submit" style="width: 100%; background: var(--secondary-color);">No, go back</button>
+                </form>
+                <form action="/save_donor" method="POST" style="display: inline-block;">
+                    <button type="submit" style="width: 100%;">Confirm & Register</button>
+                </form>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>"Your confirmation today is a hope for someone tomorrow."</p>
+        <p>&copy; 2026 LifeSaver Blood Bank. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Confirmation - LifeSaver</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="logo-container" onclick="location.href='/'" style="cursor:pointer;">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="LifeSaver Logo" class="logo-img">
+            <h1>LifeSaver</h1>
+        </div>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+        </nav>
+    </header>
+    <main>
+        <div class="card" style="max-width: 600px; margin: 0 auto; text-align: center;">
+            <h2 style="color: var(--primary-color);">Manage Your Privacy</h2>
+            <p style="margin-bottom: 30px; color: var(--text-muted);">Switch your visibility to control who can see your contact information.</p>
+            
+            <div class="result-item" style="border-left: 5px solid var(--secondary-color); padding: 25px; background: rgba(0,0,0,0.02); border-radius: 8px; margin-bottom: 30px;">
+                <p>Hello, <strong style="color: var(--text-color);">{{ user.name }}</strong>!</p>
+                <div style="margin-top: 15px; padding: 10px; background: white; border-radius: 4px; display: inline-block;">
+                    Status: 
+                    {% if user.is_hidden == 1 %}
+                        <span style="font-weight: bold; padding: 4px 10px; border-radius: 4px; background: #ffebee; color: #c62828;">HIDDEN</span>
+                    {% else %}
+                        <span style="font-weight: bold; padding: 4px 10px; border-radius: 4px; background: #e8f5e9; color: #2e7d32;">VISIBLE</span>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <p style="margin-bottom: 25px; font-weight: 500;">Do you want to toggle your visibility now?</p>
+            
+            <form action="/toggle_privacy" method="POST">
+                <input type="hidden" name="donor_id" value="{{ user.donor_id }}">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <button name="choice" value="no" style="background: var(--secondary-color);">No, Keep as is</button>
+                    <button name="choice" value="yes">Yes, Switch Status</button>
+                </div>
+            </form>
+            
+            <div style="margin-top: 25px;">
+                <a href="/" style="text-decoration: none; color: var(--secondary-color); font-size: 0.9rem;">&larr; Back to Home</a>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>"Your privacy is our priority."</p>
+        <p>&copy; 2026 LifeSaver Blood Bank. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results - LifeSaver</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="logo-container" onclick="location.href='/'" style="cursor:pointer;">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="LifeSaver Logo" class="logo-img">
+            <h1>LifeSaver</h1>
+        </div>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+        </nav>
+    </header>
+    <main>
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                <h2>Search Results</h2>
+                <span class="blood-type" style="padding: 8px 15px; font-size: 1.1rem;">Group: {{ bg }}</span>
+            </div>
+
+            {% if no_bg_at_all %}
+                <div class="card" style="background: rgba(211, 47, 47, 0.05); text-align: center; border: 1px dashed var(--primary-color);">
+                    <p style="color: var(--primary-dark); font-weight: 500;">Currently, no donors are registered for blood group: <b>{{ bg }}</b>.</p>
+                </div>
+            {% else %}
+                <h3 style="margin-bottom: 15px; color: var(--secondary-color);">
+                    {% if loc %}
+                        Exact Matches for: {{ loc }}
+                    {% else %}
+                        All Registered Donors
+                    {% endif %}
+                </h3>
+                {% if exact %}
+                    <div class="results-container">
+                        {% for d in exact %}
+                            <div class="result-item">
+                                <div class="result-header">
+                                    <h4 style="color: var(--primary-dark);">{{ d.name }}</h4>
+                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                        {% if d.last_donation %}
+                                            <span style="font-size: 0.75rem; background: #fff3e0; color: #ef6c00; padding: 2px 8px; border-radius: 10px; font-weight: 500;">
+                                                {{ d.days_ago if d.days_ago else d.last_donation }}
+                                            </span>
+                                        {% else %}
+                                            <span style="font-size: 0.75rem; background: #e8f5e9; color: #2e7d32; padding: 2px 8px; border-radius: 10px; font-weight: 500;">First Time Donor</span>
+                                        {% endif %}
+                                        <span style="font-size: 0.8rem; color: var(--text-muted);">&bull; Exact Match</span>
+                                    </div>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                    <p><strong>Phone:</strong> <a href="tel:{{ d.phone }}" style="color: var(--primary-color); text-decoration: none;">{{ d.phone }}</a></p>
+                                    <p><strong>Location:</strong> {{ d.location }}</p>
+                                    {% if d.email %}
+                                        <p><strong>Email:</strong> {{ d.email }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p style="margin-bottom: 30px; font-style: italic; color: var(--text-muted);">
+                        {% if loc %}
+                            No donors found exactly in {{ loc }}.
+                        {% else %}
+                            No donors found for this blood group.
+                        {% endif %}
+                    </p>
+                {% endif %}
+
+                {% if loc %}
+                    <hr style="margin: 30px 0; border: 0; border-top: 1px solid #eee;">
+                    
+                    <h3 style="margin-bottom: 15px; color: var(--secondary-color);">Other Donors (Different Location):</h3>
+                    {% if others %}
+                        <div class="results-container">
+                            {% for d in others %}
+                                <div class="result-item" style="border-left-color: var(--secondary-color);">
+                                    <div class="result-header">
+                                        <h4 style="color: var(--text-color);">{{ d.name }}</h4>
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            {% if d.last_donation %}
+                                                <span style="font-size: 0.75rem; background: #fff3e0; color: #ef6c00; padding: 2px 8px; border-radius: 10px; font-weight: 500;">
+                                                    {{ d.days_ago if d.days_ago else "donated " + d.last_donation }}
+                                                </span>
+                                            {% else %}
+                                                <span style="font-size: 0.75rem; background: #e8f5e9; color: #2e7d32; padding: 2px 8px; border-radius: 10px; font-weight: 500;">First Time Donor</span>
+                                            {% endif %}
+                                            <span style="font-size: 0.8rem; color: var(--text-muted);">&bull; External Location</span>
+                                        </div>
+                                    </div>
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                        <p><strong>Phone:</strong> <a href="tel:{{ d.phone }}" style="color: var(--secondary-color); text-decoration: none;">{{ d.phone }}</a></p>
+                                        <p><strong>Location:</strong> {{ d.location }}</p>
+                                        {% if d.email %}
+                                            <p><strong>Email:</strong> {{ d.email }}</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p style="font-style: italic; color: var(--text-muted);">No other donors available.</p>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+
+            <div style="margin-top: 40px; text-align: center; border-top: 1px solid #eee; padding-top: 20px;">
+                <a href="/search" class="btn">New Search</a>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>"Don't wait for a message. Just save a life today."</p>
+        <p>&copy; 2026 LifeSaver Blood Bank. All rights reserved.</p>
+    </footer>
+</body>
+</html>

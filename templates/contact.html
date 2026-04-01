@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - LifeSaver</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="LifeSaver Logo" class="logo-img">
+            <h1>LifeSaver</h1>
+        </div>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+        </nav>
+    </header>
+    <main>
+        <div class="card">
+            <h2>Contact Us</h2>
+            <p>If you have any questions, suggestions, or need immediate assistance, please reach out through the following channels:</p>
+            
+            <div style="margin-top: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                <div class="contact-info">
+                    <h3>General Inquiries</h3>
+                    <p>Email: <a href="mailto:info@lifesaver.org" style="color: var(--primary-color);">info@lifesaver.org</a></p>
+                    <p>Phone: +1 234 567 890</p>
+                </div>
+                <div class="contact-info">
+                    <h3>Emergency Support</h3>
+                    <p>Hotline: 1-800-BLOOD-HELP</p>
+                    <p>Available 24/7 for critical requests.</p>
+                </div>
+            </div>
+            
+            <h3 style="margin-top: 40px;">Send us a message</h3>
+            <form style="margin-top: 20px;">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" placeholder="Your Name">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" placeholder="Your Email Address">
+                </div>
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea rows="4" placeholder="How can we help you?"></textarea>
+                </div>
+                <button type="button" class="btn">Submit Message</button>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <p>"A drop of blood can save a life."</p>
+        <p>&copy; 2026 LifeSaver Blood Bank. All rights reserved.</p>
+    </footer>
+</body>
+</html>

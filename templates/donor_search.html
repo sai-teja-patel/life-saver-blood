@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Donors - LifeSaver</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="logo-container" onclick="location.href='/'" style="cursor:pointer;">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="LifeSaver Logo" class="logo-img">
+            <h1>LifeSaver</h1>
+        </div>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+        </nav>
+    </header>
+    <main>
+        <div class="card" style="max-width: 600px; margin: 0 auto;">
+            <h2>Find Donors Near You</h2>
+            <p style="margin-bottom: 30px; color: var(--text-muted);">Select the required blood group and specify your location.</p>
+            
+            <form action="/search" method="POST" novalidate onsubmit="return validateForm(event)">
+                <div class="form-group">
+                    <label>Required Blood Group</label>
+                    <select name="blood_group" required>
+                        <option value="" disabled selected>Select Blood Group</option>
+                        <option>A+</option><option>A-</option>
+                        <option>B+</option><option>B-</option>
+                        <option>O+</option><option>O-</option>
+                        <option>AB+</option><option>AB-</option>
+                    </select>
+                    <span class="error-message">Which blood type are you looking for?</span>
+                </div>
+                
+                <div class="form-group">
+                    <label>Location (District)</label>
+                    <select name="location">
+                        <option value="" selected>All Districts (Optional)</option>
+                        {% for loc in locations %}
+                            <option value="{{ loc }}">{{ loc }}</option>
+                        {% endfor %}
+                    </select>
+                    <span class="error-message">You can filter by district or leave empty for all donors.</span>
+                </div>
+                
+                <div style="margin-top: 30px;">
+                    <button type="submit" style="width: 100%;">Search Donors</button>
+                </div>
+            </form>
+            <div style="margin-top: 20px; text-align: center;">
+                <a href="/" style="text-decoration: none; color: var(--secondary-color); font-size: 0.9rem;">&larr; Back to Home</a>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>"Your search can bridge the gap between a life and a miracle."</p>
+        <p>&copy; 2026 LifeSaver Blood Bank. All rights reserved.</p>
+    </footer>
+    <script>
+        function validateForm(e) {
+            const form = e.target;
+            const inputs = form.querySelectorAll('select[required]');
+            let isValid = true;
+            
+            inputs.forEach(input => {
+                input.classList.remove('error-input');
+                const errMsg = input.closest('.form-group').querySelector('.error-message');
+                if (errMsg) errMsg.classList.remove('show');
+                
+                if (!input.checkValidity() || !input.value) {
+                    isValid = false;
+                    input.classList.add('error-input');
+                    if (errMsg) errMsg.classList.add('show');
+                    
+                    input.addEventListener('change', () => {
+                        input.classList.remove('error-input');
+                        if (errMsg) errMsg.classList.remove('show');
+                    }, { once: true });
+                }
+            });
+            
+            if (!isValid) {
+                e.preventDefault();
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>

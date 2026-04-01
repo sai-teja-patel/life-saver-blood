@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - LifeSaver</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="LifeSaver Logo" class="logo-img">
+            <h1>LifeSaver</h1>
+        </div>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+        </nav>
+    </header>
+    <main>
+        <div class="card">
+            <h2>About LifeSaver Blood Bank</h2>
+            <p>LifeSaver is a non-profit initiative dedicated to connecting blood donors with those in need. Our mission is to ensure that no life is lost due to the unavailability of blood.</p>
+            
+            <h3 style="margin-top: 20px;">Our Vision</h3>
+            <p>We envision a world where every patient gets blood in time, and every donor finds it easy and rewarding to give.</p>
+
+            <h3 style="margin-top: 20px;">Why Choose LifeSaver?</h3>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Privacy First:</strong> We give you full control over your contact visibility.</li>
+                <li><strong>Local Search:</strong> Find donors closest to your location.</li>
+                <li><strong>Verified Donors:</strong> We encourage a responsible community of life-savers.</li>
+                <li><strong>Completely Free:</strong> There are no charges for searching or registering.</li>
+            </ul>
+            
+            <div style="margin-top: 30px;">
+                <a href="/registration_menu" class="btn">Become a Donor</a>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>"A drop of blood can save a life."</p>
+        <p>&copy; 2026 LifeSaver Blood Bank. All rights reserved.</p>
+    </footer>
+</body>
+</html>

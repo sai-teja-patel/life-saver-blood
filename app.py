@@ -68,7 +68,7 @@ def init_db():
                 location TEXT NOT NULL,
                 email TEXT,
                 password TEXT NOT NULL,
-                is_hidden INTEGER DEFAULT 0,
+                is_hidden INTEGER DEFAULT 1,
                 last_donation TEXT DEFAULT NULL 
             )
         ''')
@@ -88,9 +88,9 @@ def init_db():
                 location TEXT NOT NULL,
                 email TEXT,
                 password TEXT NOT NULL,
-                is_hidden INTEGER DEFAULT 0,
+                is_hidden INTEGER DEFAULT 1,
                 last_donation TEXT DEFAULT NULL 
-            )last_donation TEXT DEFAULT NULL
+            )
         ''', commit=True)
 
 # Ensure Database is initialized on startup
@@ -133,6 +133,12 @@ def register():
             flash("Please choose a valid district from the list (e.g., Karimnagar, not knr).", "error")
             return redirect(url_for('register'))
 
+        # Check if phone number already exists
+        existing_user = db_query('SELECT phone FROM donors WHERE phone=?', (request.form['phone'],), fetch=True, single=True)
+        if existing_user:
+            flash("The mobile number is already registered.", "error")
+            return redirect(url_for('register'))
+
         session['reg_data'] = request.form
         return render_template('registration_preview.html', data=request.form)
     
@@ -145,8 +151,8 @@ def save_donor():
         return redirect(url_for('register'))
         
     db_query('''
-        INSERT INTO donors (name, phone, blood_group, location, email, password, last_donation, is_hidden) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, 0)
+        INSERT INTO donors (name, phone, blood_group, location, email, password, last_donation) 
+        VALUES (?, ?, ?, ?, ?, ?, ?)
     ''', (data['name'], data['phone'], data['blood_group'], data['location'], data.get('email'), data['password'], data.get('last_donation')), commit=True)
     
     flash("Congratulations! You have successfully registered as a donor. Thank you for your kindness.", "success")

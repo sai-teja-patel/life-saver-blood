@@ -144,7 +144,7 @@ input, select, textarea {
 }
 
 select {
-    appearance: none; /* Only hide default select arrow for native selects */
+    appearance: none; /* Only hide default select for native selects */
 }
 
 /* Custom dropdown arrow for searchable inputs */

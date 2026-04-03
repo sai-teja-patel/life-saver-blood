@@ -1,7 +1,7 @@
 # 🩸 LifeSaver: Blood Bank Management System
 > **A Comprehensive Project Report Submitted for College Academic Review**
 
-![LifeSaver Hero](file:///C:/Users/vilas/.gemini/antigravity/brain/cf58e32b-c848-4d96-99c8-e3866db4be41/lifesaver_blood_bank_hero_1774684394118.png)
+![LifeSaver Hero](https://github.com/sai-teja-patel/life-saver-blood/blob/509efc20cf070597fd824c6eeab7fe1366a7ba11/static/images/logo.png)
 
 ---
 

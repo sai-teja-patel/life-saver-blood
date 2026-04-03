@@ -171,6 +171,4 @@ The **LifeSaver Blood Bank Management System** successfully addresses the critic
 
 ---
 
-> **Prepared By**: [Your Name/Team Name]
-> **Project Guide**: [Guide Name]
-> **Department**: Computer Science & Engineering
+
